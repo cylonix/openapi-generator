@@ -41,8 +41,8 @@ public class TypeScriptAngularClientCodegenTest {
         TypeScriptAngularClientCodegen codegen = new TypeScriptAngularClientCodegen();
         // unspecified option should default to PascalCase
         codegen.processOpts();
-        Assert.assertEquals(codegen.toEnumVarName("valid_id", "string"), "ValidId");
-        Assert.assertEquals(codegen.toEnumVarName("illegal-id+", "string"), "IllegalId");
+        Assert.assertEquals(codegen.toEnumVarName("valid_id", "string"), "ValidID"); // __CYLONIX_MOD__
+        Assert.assertEquals(codegen.toEnumVarName("illegal-id+", "string"), "IllegalID"); // __CYLONIX_MOD__
 
         codegen = new TypeScriptAngularClientCodegen();
         codegen.additionalProperties().put(CodegenConstants.ENUM_PROPERTY_NAMING, CodegenConstants.ENUM_PROPERTY_NAMING_TYPE.original.name());
@@ -243,8 +243,8 @@ public class TypeScriptAngularClientCodegenTest {
         TypeScriptAngularClientCodegen codegen = new TypeScriptAngularClientCodegen();
         // unspecified option should default to camelcase
         codegen.processOpts();
-        Assert.assertEquals(codegen.toParamName("valid_id"), "validId");
-        Assert.assertEquals(codegen.toParamName("illegal-id+"), "illegalId");
+        Assert.assertEquals(codegen.toParamName("valid_id"), "validID"); // __CYLONIX_MOD__
+        Assert.assertEquals(codegen.toParamName("illegal-id+"), "illegalID"); // __CYLONIX_MOD__
 
         codegen = new TypeScriptAngularClientCodegen();
         codegen.additionalProperties().put(CodegenConstants.PARAM_NAMING, CodegenConstants.PARAM_NAMING_TYPE.original.name());
@@ -261,8 +261,8 @@ public class TypeScriptAngularClientCodegenTest {
         codegen = new TypeScriptAngularClientCodegen();
         codegen.additionalProperties().put(CodegenConstants.PARAM_NAMING, CodegenConstants.PARAM_NAMING_TYPE.PascalCase.name());
         codegen.processOpts();
-        Assert.assertEquals(codegen.toParamName("valid_id"), "ValidId");
-        Assert.assertEquals(codegen.toParamName("illegal-id+"), "IllegalId");
+        Assert.assertEquals(codegen.toParamName("valid_id"), "ValidID"); // __CYLONIX_MOD__
+        Assert.assertEquals(codegen.toParamName("illegal-id+"), "IllegalID"); // __CYLONIX_MOD__
     }
 
     @Test

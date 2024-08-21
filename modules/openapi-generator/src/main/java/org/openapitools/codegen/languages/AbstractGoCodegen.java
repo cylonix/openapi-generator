@@ -33,6 +33,7 @@ import java.util.*;
 
 import static org.openapitools.codegen.utils.CamelizeOption.LOWERCASE_FIRST_LETTER;
 import static org.openapitools.codegen.utils.StringUtils.camelize;
+import static org.openapitools.codegen.utils.StringUtils.toCamelCaseWithInitialisms; // __CYLONIX_MOD__
 import static org.openapitools.codegen.utils.StringUtils.underscore;
 
 public abstract class AbstractGoCodegen extends DefaultCodegen implements CodegenConfig {
@@ -234,7 +235,7 @@ public abstract class AbstractGoCodegen extends DefaultCodegen implements Codege
             return "AdditionalPropertiesField";
         }
 
-        return name;
+        return toCamelCaseWithInitialisms(name); // __CYLONIX_MOD__
     }
 
     @Override
@@ -252,7 +253,7 @@ public abstract class AbstractGoCodegen extends DefaultCodegen implements Codege
         // params should be lowerCamelCase. E.g. "person Person", instead of
         // "Person Person".
         //
-        name = camelize(toVarName(name), LOWERCASE_FIRST_LETTER);
+        name = toCamelCaseWithInitialisms(camelize(name, LOWERCASE_FIRST_LETTER)); // __CYLONIX_MOD__
 
         // REVISIT: Actually, for idiomatic go, the param name should
         // really should just be a letter, e.g. "p Person"), but we'll get
@@ -269,7 +270,7 @@ public abstract class AbstractGoCodegen extends DefaultCodegen implements Codege
     public String toModelName(String name) {
         // camelize the model name
         // phone_number => PhoneNumber
-        return camelize(toModel(name));
+        return toCamelCaseWithInitialisms(camelize(toModel(name))); // __CYLONIX_MOD__
     }
 
     protected boolean isReservedFilename(String name) {
@@ -502,7 +503,7 @@ public abstract class AbstractGoCodegen extends DefaultCodegen implements Codege
             sanitizedOperationId = "call_" + sanitizedOperationId;
         }
 
-        return camelize(sanitizedOperationId);
+        return toCamelCaseWithInitialisms(camelize(sanitizedOperationId)); // __CYLONIX_MOD__
     }
 
     @Override
@@ -914,6 +915,18 @@ public abstract class AbstractGoCodegen extends DefaultCodegen implements Codege
         return datatype + "_" + value;
     }
 
+    // __BEGIN_CYLONIX_MOD__
+    private static String firstLetterToUpper(String word) {
+        if (word.length() == 0) {
+            return word;
+        } else if (word.length() == 1) {
+            return word.substring(0, 1).toUpperCase(Locale.ROOT);
+        } else {
+            return word.substring(0, 1).toUpperCase(Locale.ROOT) + word.substring(1);
+        }
+    }
+    // __END_CYLONIX_MOD__
+
     @Override
     public String toEnumVarName(String name, String datatype) {
         if (enumNameMapping.containsKey(name)) {
@@ -935,11 +948,11 @@ public abstract class AbstractGoCodegen extends DefaultCodegen implements Codege
 
         // for symbol, e.g. $, #
         if (getSymbolName(name) != null) {
-            return getSymbolName(name).toUpperCase(Locale.ROOT);
+            return firstLetterToUpper(getSymbolName(name)); // __CYLONIX_MOD__
         }
 
         // string
-        String enumName = sanitizeName(underscore(name).toUpperCase(Locale.ROOT));
+        String enumName = sanitizeName(name); // __CYLONIX_MOD__
         enumName = enumName.replaceFirst("^_", "");
         enumName = enumName.replaceFirst("_$", "");
 
@@ -948,7 +961,7 @@ public abstract class AbstractGoCodegen extends DefaultCodegen implements Codege
         } else if (enumName.matches("\\d.*")) { // starts with a number
             return NUMERIC_ENUM_PREFIX + enumName;
         } else {
-            return enumName;
+            return firstLetterToUpper(enumName); // __CYLONIX_MOD__
         }
     }
 
@@ -958,7 +971,7 @@ public abstract class AbstractGoCodegen extends DefaultCodegen implements Codege
             return enumNameMapping.get(property.name);
         }
 
-        String enumName = underscore(toModelName(property.name)).toUpperCase(Locale.ROOT);
+        String enumName = underscore(toModelName(property.name));
 
         // remove [] for array or map of enum
         enumName = enumName.replace("[]", "");
@@ -966,7 +979,7 @@ public abstract class AbstractGoCodegen extends DefaultCodegen implements Codege
         if (enumName.matches("\\d.*")) { // starts with number
             return NUMERIC_ENUM_PREFIX + enumName;
         } else {
-            return enumName;
+            return firstLetterToUpper(enumName);  // __CYLONIX_MOD__
         }
     }
 

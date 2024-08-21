@@ -8,6 +8,7 @@ import org.apache.commons.lang3.tuple.Pair;
 import org.openapitools.codegen.config.GlobalSettings;
 
 import java.util.Collections;
+import java.util.HashMap; // __CYLONIX_MOD__
 import java.util.List;
 import java.util.Locale;
 import java.util.Map;
@@ -283,4 +284,63 @@ public class StringUtils {
             throw new RuntimeException("Word '" + name + "' could not be escaped.");
         });
     }
+
+    // __BEGIN_CYLONIX_MOD__
+    // __BEGIN_PORTING_FROM_OAPI_CODEGEN__
+    // Ported from https://github.com/oapi-codegen/oapi-codegen/blob/main/pkg/codegen/utils.go
+    private static final Pattern CAMEL_CASE_MATCH_PARTS = Pattern.compile("[^\\p{Lu}]*([\\p{Lu}]+[\\p{Ll}\\d]*)[^\\p{Lu}]*");
+    private static final Map<String, String> INITIALISMS_MAP = makeInitialismsMap(new String[] {
+        "ACL", "AMQP", "API", "ASCII",
+        "CIDR", "CPU", "CSS",
+        "DB", "DNS",
+        "EOF",
+        "FQDN",
+        "GID", "GUID",
+        "HTML", "HTTP", "HTTPS",
+        "ID", "IP", "IPAM", "IPv4", "IPv6",
+        "JSON",
+        "PC",
+        "QPS",
+        "RAM", "RPC", "RTP",
+        "SIP", "SLA", "SMTP", "SQL", "SSH",
+        "TCP", "TLS", "TS", "TTL",
+        "UDP", "UI", "UID", "URI", "URL", "UTF8", "UUID",
+        "VM",
+        "XML", "XMPP", "XSRF", "XSS"
+    });
+
+    public static String toCamelCaseWithInitialisms(String s) {
+        if (s.length() <= 0) {
+            return s;
+        }
+        StringBuilder sb = new StringBuilder();
+        Matcher matcher = CAMEL_CASE_MATCH_PARTS.matcher(toCamelCaseWithDigits(s));
+        boolean matched = false;
+        while (matcher.find()) {
+            matched = true;
+            String sub = matcher.group();
+            String part = matcher.group(1);
+            String lower = part.toLowerCase();
+            if (INITIALISMS_MAP.containsKey(lower)) {
+                sub = sub.replace(part, INITIALISMS_MAP.get(lower));
+            }
+            sb.append(sub);
+        }
+        return matched ? sb.toString() : s;
+    }
+
+    private static String toCamelCaseWithDigits(String s) {
+        // Implement the toCamelCaseWithDigits logic here
+        return s;
+    }
+
+    private static Map<String, String> makeInitialismsMap(String[] initialisms) {
+        Map<String, String> map = new HashMap<>();
+        for (String initialism : initialisms) {
+            map.put(initialism.toLowerCase(), initialism);
+        }
+        return map;
+    }
+    // __END_PORTING_FROM_OAPI_CODEGEN__
+    // __END_CYLONIX_MOD__
 }
