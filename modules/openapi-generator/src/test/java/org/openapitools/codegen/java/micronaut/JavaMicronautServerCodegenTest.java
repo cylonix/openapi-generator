@@ -437,7 +437,7 @@ public class JavaMicronautServerCodegenTest extends AbstractMicronautCodegenTest
             .doesNotContainWithName("XmlElementWrapper")
             .containsWithNameAndAttributes("XmlElement", Map.of("name", "\"id\"", "namespace", "\"http://example.com/schema\""))
             .toProperty().toType()
-            .assertMethod("getId")
+            .assertMethod("getID") // __CYLONIX_MOD__
             .doesNotHaveAnnotation("JacksonXmlElementWrapper")
             .hasAnnotation("JacksonXmlProperty", Map.of("localName", "\"id\"", "namespace", "\"http://example.com/schema\""))
             .toFileAssert()

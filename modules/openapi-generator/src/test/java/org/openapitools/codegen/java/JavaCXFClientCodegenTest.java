@@ -330,7 +330,7 @@ public class JavaCXFClientCodegenTest {
         TestUtils.assertFileContains(defaultApi,
                 //get file
                 "@ApiResponse(code = 200, message = \"File content\", response = InputStream.class)",
-                "public InputStream filesIdGet(@PathParam(\"id\") String id);",
+                "public InputStream filesIDGet(@PathParam(\"id\") String id);", // __CYLONIX_MOD__
 
                 //upload
                 "public FilesUploadPost200Response filesUploadPost(InputStream body);"

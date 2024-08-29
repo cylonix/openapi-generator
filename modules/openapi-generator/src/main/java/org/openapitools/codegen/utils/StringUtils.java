@@ -3,11 +3,15 @@ package org.openapitools.codegen.utils;
 import com.github.benmanes.caffeine.cache.Cache;
 import com.github.benmanes.caffeine.cache.Caffeine;
 import com.github.benmanes.caffeine.cache.Ticker;
+import com.google.common.base.CaseFormat; // __CYLONIX_MOD__
+
 import org.apache.commons.lang3.tuple.ImmutablePair;
 import org.apache.commons.lang3.tuple.Pair;
 import org.openapitools.codegen.config.GlobalSettings;
 
+import java.util.Arrays; // __CYLONIX_MOD__
 import java.util.Collections;
+import java.util.Comparator;
 import java.util.HashMap; // __CYLONIX_MOD__
 import java.util.List;
 import java.util.Locale;
@@ -122,6 +126,8 @@ public class StringUtils {
     private static Pattern camelizeHyphenPattern = Pattern.compile("(-)(.)");
     private static Pattern camelizeDollarPattern = Pattern.compile("\\$");
     private static Pattern camelizeSimpleUnderscorePattern = Pattern.compile("_");
+    private static Pattern camelizeLeadingUppercaseWordPattern = Pattern.compile("^[A-Z]+"); // __CYLONIX_MOD__
+    private static Pattern camelizeFirstWordPattern = Pattern.compile("^(\\w)(\\W)"); // __CYLONIX_MOD__
 
     /**
      * Camelize name (parameter, property, method, etc)
@@ -145,19 +151,37 @@ public class StringUtils {
 
             // case out dots
             String[] parts = word.split("\\.");
-            StringBuilder f = new StringBuilder();
-            for (String z : parts) {
-                if (z.length() > 0) {
-                    f.append(Character.toUpperCase(z.charAt(0))).append(z.substring(1));
+            // __BEGIN_CYLONIX_MOD__
+            if (parts.length > 1) {
+                StringBuilder f = new StringBuilder();
+                for (String z : parts) {
+                    if (z.length() > 0) {
+                        f.append(Character.toUpperCase(z.charAt(0))).append(z.substring(1));
+                    }
                 }
+                word = f.toString();
             }
-            word = f.toString();
+            // __END_CYLONIX_MOD__
 
             m = camelizeSlashPattern.matcher(word);
             while (m.find()) {
                 word = m.replaceFirst(Character.toUpperCase(m.group(1).charAt(0)) + m.group(1).substring(1)/*.toUpperCase()*/);
                 m = camelizeSlashPattern.matcher(word);
             }
+
+            // __BEGIN_CYLONIX_MOD__
+            if (option == CamelizeOption.LOWERCASE_FIRST_LETTER ||
+                option == CamelizeOption.LOWERCASE_FIRST_CHAR) {
+                m = camelizeLeadingUppercaseWordPattern.matcher(word);
+                if (m.find()) {
+                    word = m.replaceFirst(m.group().toLowerCase());
+                }
+                m = camelizeFirstWordPattern.matcher(word);
+                if (m.find()) {
+                    word = m.replaceFirst(m.group(1).toLowerCase()+m.group(2));
+                }
+            }
+            // __END_CYLONIX_MOD__
 
             // Uppercase the class name.
             m = camelizeUppercasePattern.matcher(word);
@@ -198,6 +222,11 @@ public class StringUtils {
 
             // remove all underscore
             word = camelizeSimpleUnderscorePattern.matcher(word).replaceAll("");
+
+            // __BEGIN_CYLONIX_MOD__
+            // support well-known initials.
+            word = toCamelCaseWithInitialisms(word);
+            // __END_CYLONIX_MOD__
             return word;
         });
     }
@@ -289,8 +318,8 @@ public class StringUtils {
     // __BEGIN_PORTING_FROM_OAPI_CODEGEN__
     // Ported from https://github.com/oapi-codegen/oapi-codegen/blob/main/pkg/codegen/utils.go
     private static final Pattern CAMEL_CASE_MATCH_PARTS = Pattern.compile("[^\\p{Lu}]*([\\p{Lu}]+[\\p{Ll}\\d]*)[^\\p{Lu}]*");
-    private static final Map<String, String> INITIALISMS_MAP = makeInitialismsMap(new String[] {
-        "ACL", "AMQP", "API", "ASCII",
+    private static final String[] INITIALISMS = new String[] {
+        "ACL", "AMQP", "ASCII",
         "CIDR", "CPU", "CSS",
         "DB", "DNS",
         "EOF",
@@ -307,9 +336,12 @@ public class StringUtils {
         "UDP", "UI", "UID", "URI", "URL", "UTF8", "UUID",
         "VM",
         "XML", "XMPP", "XSRF", "XSS"
-    });
+    };
+    private static boolean initialismSorted = false;
 
-    public static String toCamelCaseWithInitialisms(String s) {
+    private static final Map<String, String> INITIALISMS_MAP = makeInitialismsMap(INITIALISMS);
+
+    private static String toCamelCaseWithInitialisms(String s) {
         if (s.length() <= 0) {
             return s;
         }
@@ -341,6 +373,38 @@ public class StringUtils {
         }
         return map;
     }
+
+    public static String firstLetterToUpper(String word) {
+        if (word.length() == 0) {
+            return word;
+        } else if (word.length() == 1) {
+            return word.substring(0, 1).toUpperCase(Locale.ROOT);
+        } else {
+            return word.substring(0, 1).toUpperCase(Locale.ROOT) + word.substring(1);
+        }
+    }
+
+    private static Pattern wordPattern = Pattern.compile("([A-Z][A-Z]+)([^A-Z]*)");
+    public static String toSnakeCaseString(final String inputWord) {
+        if (!initialismSorted) {
+            Arrays.sort(INITIALISMS, Comparator.comparing(String::length));
+            initialismSorted = true;
+        }
+        String word = inputWord;
+        Matcher m = wordPattern.matcher(word);
+        while (m.find()) {
+            for (String s: INITIALISMS) {
+                if (m.group().equals(s) || m.group(1).startsWith(s)) {
+                    word = m.replaceFirst(firstLetterToUpper(s.toLowerCase()) + m.group().substring(s.length()));
+                    m = wordPattern.matcher(word);
+                    break;
+                }
+            }
+         }
+
+        return CaseFormat.UPPER_CAMEL.to(CaseFormat.UPPER_UNDERSCORE, word);
+    }
+
     // __END_PORTING_FROM_OAPI_CODEGEN__
     // __END_CYLONIX_MOD__
 }

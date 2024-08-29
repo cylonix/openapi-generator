@@ -391,7 +391,7 @@ public class DartDioModelTest {
     public static Object[][] modelNames() {
         return new Object[][] {
             {"EnumClass", "TestModelEnumClass"},
-            {"JsonObject", "TestModelJsonObject"},
+            {"JSONObject", "TestModelJSONObject"}, // __CYLONIX_MOD__
         };
     }
 
@@ -404,7 +404,7 @@ public class DartDioModelTest {
         codegen.additionalProperties().put(CodegenConstants.SERIALIZATION_LIBRARY, DartDioClientCodegen.SERIALIZATION_LIBRARY_BUILT_VALUE);
         codegen.processOpts();
         codegen.typeMapping().put("EnumClass", "TestModelEnumClass");
-        codegen.typeMapping().put("JsonObject", "TestModelJsonObject");
+        codegen.typeMapping().put("JSONObject", "TestModelJSONObject"); // __CYLONIX_MOD__
         codegen.setOpenAPI(openAPI);
 
         final CodegenModel cm = codegen.fromModel(name, model);
@@ -417,7 +417,7 @@ public class DartDioModelTest {
     public static Object[][] modelNamesTimemachine() {
         return new Object[][] {
             {"EnumClass", "TestModelEnumClass"},
-            {"JsonObject", "TestModelJsonObject"},
+            {"JSONObject", "TestModelJSONObject"}, // __CYLONIX_MOD__
             {"OffsetDate", "TestModelOffsetDate"},
         };
     }
@@ -430,7 +430,7 @@ public class DartDioModelTest {
         codegen.additionalProperties().put(DartDioClientCodegen.DATE_LIBRARY, DartDioClientCodegen.DATE_LIBRARY_TIME_MACHINE);
         codegen.processOpts();
         codegen.typeMapping().put("EnumClass", "TestModelEnumClass");
-        codegen.typeMapping().put("JsonObject", "TestModelJsonObject");
+        codegen.typeMapping().put("JSONObject", "TestModelJSONObject"); // __CYLONIX_MOD__
         codegen.typeMapping().put("OffsetDate", "TestModelOffsetDate");
         codegen.setOpenAPI(openAPI);
 

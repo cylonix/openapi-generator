@@ -220,7 +220,7 @@ public class TypeScriptFetchClientCodegen extends AbstractTypeScriptClientCodege
         }
         return "id".equals(name) ||
                 "ids".equals(name) ||
-                (name.length() >= 3 && name.endsWith("Id")) ||
+                (name.length() >= 3 && name.endsWith("ID")) || // __CYLONIX_MOD__
                 (name.length() >= 4 && name.endsWith("Ids"));
     }
 

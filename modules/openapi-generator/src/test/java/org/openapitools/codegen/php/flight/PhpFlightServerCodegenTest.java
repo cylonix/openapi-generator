@@ -53,7 +53,7 @@ public class PhpFlightServerCodegenTest {
 
         java.nio.file.Path petApiFile = files.stream().filter(f -> f.getName().contains("AbstractPetApi.php")).findFirst().orElseThrow().toPath();
         TestUtils.assertFileContains(petApiFile, "namespace OpenAPIServer\\Api;");
-        TestUtils.assertFileContains(petApiFile, "public function getPetById(int $petId)");
+        TestUtils.assertFileContains(petApiFile, "public function getPetByID(int $petID)"); // __CYLONIX_MOD__
         TestUtils.assertFileContains(petApiFile, "public function updatePet(\\OpenAPIServer\\Model\\Pet $pet): \\OpenAPIServer\\Model\\Pet|null");
 
         java.nio.file.Path registerRoutesFile = files.stream().filter(f -> f.getName().contains("RegisterRoutes.php")).findFirst().orElseThrow().toPath();

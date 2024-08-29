@@ -340,7 +340,7 @@ public class JavaJAXRSCXFExtServerCodegenTest extends JavaJaxrsBaseTest {
         generator.opts(input).generate();
 
         JavaFileAssert.assertThat(Paths.get(outputPath + "/src/main/java/org/openapitools/api/impl/PetApiServiceImpl.java"))
-            .assertMethod("getPetById")
+            .assertMethod("getPetByID") // __CYLONIX_MOD__
             .bodyContainsLines(
                 "Pet response = new Pet();",
                 "return response;"
@@ -385,9 +385,9 @@ public class JavaJAXRSCXFExtServerCodegenTest extends JavaJaxrsBaseTest {
                 "File cacheFile = new File(System.getProperty(\"jaxrs.test.server.json\"",
                 "cache = JsonCache.Factory.instance.get(\"test-data\").load(cacheFile).child(\"/org.openapitools.api/PetApi\");"
             )
-            .assertMethod("getPetById")
+            .assertMethod("getPetByID") // __CYLONIX_MOD__
             .bodyContainsLines(
-                "Pet response = cache.getObject(\"/getPetById/response\", Pet.class);"
+                "Pet response = cache.getObject(\"/getPetByID/response\", Pet.class);" // __CYLONIX_MOD__
             );
 
 

@@ -50,7 +50,6 @@ import static org.openapitools.codegen.languages.AbstractTypeScriptClientCodegen
 import static org.openapitools.codegen.languages.AbstractTypeScriptClientCodegen.ParameterExpander.ParamStyle.simple;
 import static org.openapitools.codegen.utils.CamelizeOption.LOWERCASE_FIRST_LETTER;
 import static org.openapitools.codegen.utils.StringUtils.camelize;
-import static org.openapitools.codegen.utils.StringUtils.toCamelCaseWithInitialisms; // __CYLONIX_MOD__
 import static org.openapitools.codegen.utils.StringUtils.underscore;
 
 public abstract class AbstractTypeScriptClientCodegen extends DefaultCodegen implements CodegenConfig {
@@ -550,7 +549,7 @@ public abstract class AbstractTypeScriptClientCodegen extends DefaultCodegen imp
         name = getNameUsingModelPropertyNaming(name);
         name = toSafeIdentifier(name);
 
-        return toCamelCaseWithInitialisms(name); // __END_CYLONIX_MOD__
+        return name;
     }
 
     private String toSafeIdentifier(String name) {
@@ -570,22 +569,8 @@ public abstract class AbstractTypeScriptClientCodegen extends DefaultCodegen imp
         String fullModelName = name;
         fullModelName = addPrefix(fullModelName, modelNamePrefix);
         fullModelName = addSuffix(fullModelName, modelNameSuffix);
-        return toCamelCaseWithInitialisms(toTypescriptTypeName(fullModelName, "Model")); // __CYLONIX_MOD__
+        return toTypescriptTypeName(fullModelName, "Model");
     }
-
-    // __BEGIN_CYLONIX_MOD__
-    public String toModelNameLowerCaseFirstWord(final String name) {
-        String fullModelName = name;
-        fullModelName = addPrefix(fullModelName, modelNamePrefix);
-        fullModelName = addSuffix(fullModelName, modelNameSuffix);
-
-        // obtain the name from modelNameMapping directly if provided
-        if (modelNameMapping.containsKey(name)) {
-            return modelNameMapping.get(name);
-        }
-        return toCamelCaseWithInitialisms(camelize(fullModelName, LOWERCASE_FIRST_LETTER));
-    }
-    // __END_CYLONIX_MOD__
 
     protected String addPrefix(String name, String prefix) {
         if (!StringUtils.isEmpty(prefix)) {
@@ -818,7 +803,7 @@ public abstract class AbstractTypeScriptClientCodegen extends DefaultCodegen imp
             throw new RuntimeException("Empty method name (operationId) not allowed");
         }
 
-        operationId = toCamelCaseWithInitialisms(camelize(sanitizeName(operationId), LOWERCASE_FIRST_LETTER)); // __CYLONIX_MOD__
+        operationId = camelize(sanitizeName(operationId), LOWERCASE_FIRST_LETTER);
         operationId = toSafeIdentifier(operationId);
 
         return operationId;
@@ -855,9 +840,9 @@ public abstract class AbstractTypeScriptClientCodegen extends DefaultCodegen imp
             case original:
                 return name;
             case camelCase:
-                return toCamelCaseWithInitialisms(camelize(name, LOWERCASE_FIRST_LETTER)); // __CYLONIX_MOD__
+                return camelize(name, LOWERCASE_FIRST_LETTER);
             case PascalCase:
-                return toCamelCaseWithInitialisms(camelize(name)); // __CYLONIX_MOD__
+                return camelize(name);
             case snake_case:
                 return underscore(name);
             default:
@@ -938,7 +923,7 @@ public abstract class AbstractTypeScriptClientCodegen extends DefaultCodegen imp
         varName = varName.replaceFirst("_$", "");
 
         varName = getNameUsingEnumPropertyNaming(varName);
-        varName = toCamelCaseWithInitialisms(varName); // __CYLONIX_MOD__
+
         if (varName.matches("\\d.*")) { // starts with number
             return "_" + varName;
         } else {
@@ -951,7 +936,7 @@ public abstract class AbstractTypeScriptClientCodegen extends DefaultCodegen imp
         String enumName = property.name;
         enumName = addSuffix(enumName, enumSuffix);
         enumName = toTypescriptTypeName(enumName, "_");
-        return toCamelCaseWithInitialisms(enumName); // __CYLONIX_MOD__
+        return enumName;
     }
 
     protected void setEnumPropertyNaming(String naming) {

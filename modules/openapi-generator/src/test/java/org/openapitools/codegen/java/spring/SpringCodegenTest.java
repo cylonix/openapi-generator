@@ -37,6 +37,7 @@ import org.openapitools.codegen.languages.SpringCodegen;
 import org.openapitools.codegen.languages.features.BeanValidationFeatures;
 import org.openapitools.codegen.languages.features.CXFServerFeatures;
 import org.openapitools.codegen.languages.features.DocumentationProviderFeatures;
+import org.openapitools.codegen.languages.features.DocumentationProviderFeatures.DocumentationProvider;
 import org.openapitools.codegen.testutils.ConfigAssert;
 import org.testng.Assert;
 import org.testng.annotations.DataProvider;
@@ -46,6 +47,7 @@ import org.testng.annotations.Test;
 import java.io.File;
 import java.io.IOException;
 import java.math.BigDecimal;
+import java.nio.charset.StandardCharsets;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
@@ -61,9 +63,13 @@ import static org.assertj.core.api.Assertions.assertThat;
 import static org.openapitools.codegen.TestUtils.*;
 import static org.openapitools.codegen.languages.AbstractJavaCodegen.GENERATE_BUILDERS;
 import static org.openapitools.codegen.languages.AbstractJavaCodegen.GENERATE_CONSTRUCTOR_WITH_ALL_ARGS;
+import static org.openapitools.codegen.languages.AbstractJavaCodegen.IMPLICIT_HEADERS;
+import static org.openapitools.codegen.languages.AbstractJavaCodegen.OPENAPI_NULLABLE;
 import static org.openapitools.codegen.languages.SpringCodegen.*;
+import static org.openapitools.codegen.languages.features.BeanValidationFeatures.USE_BEANVALIDATION;
 import static org.openapitools.codegen.languages.features.DocumentationProviderFeatures.ANNOTATION_LIBRARY;
 import static org.openapitools.codegen.languages.features.DocumentationProviderFeatures.DOCUMENTATION_PROVIDER;
+import static org.openapitools.codegen.languages.features.PerformBeanValidationFeatures.PERFORM_BEANVALIDATION;
 import static org.testng.Assert.assertEquals;
 import static org.testng.Assert.fail;
 
@@ -1202,17 +1208,17 @@ public class SpringCodegenTest {
 
 
         assertFileContains(filePath,
-                "oAuth2AccessCode.put(\"spring.security.oauth2.client.registration.oAuth2AccessCode.redirect-uri\", \"set-oAuth2AccessCode-redirect-uri\" );",
-                "oAuth2AccessCode.put(\"spring.security.oauth2.client.registration.oAuth2AccessCode.authorization-grant-type\", \"authorization_code\" );",
-                "oAuth2AccessCode.put(\"spring.security.oauth2.client.registration.oAuth2AccessCode.client-id\", \"set-oAuth2AccessCode-client-id\" );",
-                "oAuth2AccessCode.put(\"spring.security.oauth2.client.registration.oAuth2AccessCode.scope\", \"openid,profile,aud\" );",
-                "oAuth2AccessCode.put(\"spring.security.oauth2.client.provider.oAuth2AccessCode.token-uri\", \"${tokenUrl}\" );",
-                "oAuth2AccessCode.put(\"spring.security.oauth2.client.provider.oAuth2AccessCode.authorization-uri\", \"${authorizationUrl}\" );",
+                "oauth2AccessCode.put(\"spring.security.oauth2.client.registration.oauth2AccessCode.redirect-uri\", \"set-oauth2AccessCode-redirect-uri\" );", // __CYLONIX_MOD__
+                "oauth2AccessCode.put(\"spring.security.oauth2.client.registration.oauth2AccessCode.authorization-grant-type\", \"authorization_code\" );", // __CYLONIX_MOD__
+                "oauth2AccessCode.put(\"spring.security.oauth2.client.registration.oauth2AccessCode.client-id\", \"set-oauth2AccessCode-client-id\" );", // __CYLONIX_MOD__
+                "oauth2AccessCode.put(\"spring.security.oauth2.client.registration.oauth2AccessCode.scope\", \"openid,profile,aud\" );", // __CYLONIX_MOD__
+                "oauth2AccessCode.put(\"spring.security.oauth2.client.provider.oauth2AccessCode.token-uri\", \"${tokenUrl}\" );", // __CYLONIX_MOD__
+                "oauth2AccessCode.put(\"spring.security.oauth2.client.provider.oauth2AccessCode.authorization-uri\", \"${authorizationUrl}\" );", // __CYLONIX_MOD__
 
 
-                "oAuth2Application.put(\"spring.security.oauth2.client.registration.oAuth2Application.client-id\", \"set-oAuth2Application-client-id\" );",
-                "oAuth2Application.put(\"spring.security.oauth2.client.registration.oAuth2Application.authorization-grant-type\", \"client_credentials\" );",
-                "oAuth2Application.put(\"spring.security.oauth2.client.provider.oAuth2Application.token-uri\", \"/openid-connect/token\" );"
+                "oauth2Application.put(\"spring.security.oauth2.client.registration.oauth2Application.client-id\", \"set-oauth2Application-client-id\" );",
+                "oauth2Application.put(\"spring.security.oauth2.client.registration.oauth2Application.authorization-grant-type\", \"client_credentials\" );",
+                "oauth2Application.put(\"spring.security.oauth2.client.provider.oauth2Application.token-uri\", \"/openid-connect/token\" );"
 
         );
 
@@ -3195,7 +3201,7 @@ public class SpringCodegenTest {
                 ))
                 .toParameter()
                 .toMethod()
-                .assertParameter("clientId")
+                .assertParameter("clientID") // __CYLONIX_MOD__
                 .assertParameterAnnotations()
                 .containsWithNameAndAttributes("Pattern", ImmutableMap.of(
                         "regexp", "\"\\\\d\"",
@@ -3310,7 +3316,7 @@ public class SpringCodegenTest {
                 .containsWithName("com.test.MyAnnotationInQuery")
                 .toParameter()
                 .toMethod()
-                .assertParameter("clientId")
+                .assertParameter("clientID") // __CYLONIX_MOD__
                 .assertParameterAnnotations()
                 .containsWithName("com.test.MyAnnotationInHeader");
     }
@@ -4605,7 +4611,7 @@ public class SpringCodegenTest {
         JavaFileAssert.assertThat(output.get("Object4.java"))
                 .assertConstructor("String", "Type1", "String", "String", "Boolean")
                 .hasParameter("responseType").toConstructor()
-                .hasParameter("requestId").toConstructor()
+                .hasParameter("requestID").toConstructor() // __CYLONIX_MOD__
                 .hasParameter("success").toConstructor()
                 .hasParameter("pageInfo")
         ;
@@ -4620,7 +4626,7 @@ public class SpringCodegenTest {
         JavaFileAssert.assertThat(output.get("Object4.java"))
                 .assertConstructor("String", "Type1", "String", "String", "Boolean")
                 .hasParameter("responseType").toConstructor()
-                .hasParameter("requestId").toConstructor()
+                .hasParameter("requestID").toConstructor() // __CYLONIX_MOD__
                 .hasParameter("success").toConstructor()
                 .hasParameter("pageInfo")
         ;
@@ -4638,7 +4644,7 @@ public class SpringCodegenTest {
         JavaFileAssert.assertThat(output.get("Object4.java"))
                 .assertConstructor("Type1", "String", "String", "Boolean")
                 .hasParameter("responseType").toConstructor()
-                .hasParameter("requestId").toConstructor()
+                .hasParameter("requestID").toConstructor() // __CYLONIX_MOD__
                 .hasParameter("success").toConstructor()
                 .hasParameter("pageInfo").toConstructor()
         ;
@@ -4742,7 +4748,7 @@ public class SpringCodegenTest {
                 .hasNoMethod("toString")
                 .hasNoMethod("hashCode")
                 .hasNoMethod("equals")
-                .hasNoMethod("getId")
+                .hasNoMethod("getID") // __CYLONIX_MOD__
                 .hasNoMethod("setId")
                 .hasNoMethod("getName")
                 .hasNoMethod("setName")
@@ -4756,9 +4762,9 @@ public class SpringCodegenTest {
                 .toFileAssert()
                 .assertMethod("equals")
                 .toFileAssert()
-                .assertMethod("getId")
+                .assertMethod("getID") // __CYLONIX_MOD__
                 .toFileAssert()
-                .assertMethod("setId")
+                .assertMethod("setID") // __CYLONIX_MOD__
                 .toFileAssert()
                 .assertMethod("getName")
                 .toFileAssert()
@@ -5036,7 +5042,7 @@ public class SpringCodegenTest {
             .toFileAssert()
 
             // ↓ test XML namespace and prefix (https://swagger.io/docs/specification/data-models/representing-xml/#:~:text=Prefixes%20and%20Namespaces)
-            .assertMethod("getId")
+            .assertMethod("getID") // __CYLONIX_MOD__
             .doesNotHaveAnnotation("XmlAttribute")
             .doesNotHaveAnnotation("XmlElementWrapper")
             .hasAnnotation("XmlElement", Map.of("name", "\"id\"", "namespace", "\"http://example.com/schema\""))

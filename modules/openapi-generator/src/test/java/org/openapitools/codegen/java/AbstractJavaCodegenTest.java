@@ -101,12 +101,12 @@ public class AbstractJavaCodegenTest {
     @Test
     public void toModelNameShouldNotUseProvidedMapping() {
         codegen.importMapping().put("json_myclass", "com.test.MyClass");
-        Assert.assertEquals(codegen.toModelName("json_myclass"), "JsonMyclass");
+        Assert.assertEquals(codegen.toModelName("json_myclass"), "JSONMyclass"); // __CYLONIX_MOD__
     }
 
     @Test
     public void toModelNameUsesPascalCase() {
-        Assert.assertEquals(codegen.toModelName("json_anotherclass"), "JsonAnotherclass");
+        Assert.assertEquals(codegen.toModelName("json_anotherclass"), "JSONAnotherclass"); // __CYLONIX_MOD__
     }
 
     @Test

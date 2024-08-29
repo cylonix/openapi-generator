@@ -61,8 +61,8 @@ public class ScalaAkkaClientCodegenTest {
 
         final CodegenProperty property1 = cm.vars.get(0);
         Assert.assertEquals(property1.baseName, "id");
-        Assert.assertEquals(property1.getter, "getId");
-        Assert.assertEquals(property1.setter, "setId");
+        Assert.assertEquals(property1.getter, "getID"); // __CYLONIX_MOD__
+        Assert.assertEquals(property1.setter, "setID"); // __CYLONIX_MOD__
         Assert.assertEquals(property1.dataType, "Long");
         Assert.assertEquals(property1.name, "id");
         Assert.assertNull(property1.defaultValue);

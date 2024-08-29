@@ -41,7 +41,6 @@ import java.util.*;
 
 import static org.openapitools.codegen.utils.CamelizeOption.LOWERCASE_FIRST_LETTER;
 import static org.openapitools.codegen.utils.StringUtils.camelize;
-import static org.openapitools.codegen.utils.StringUtils.toCamelCaseWithInitialisms; // __CYLONIX_MOD__
 
 public class GoClientCodegen extends AbstractGoCodegen {
 
@@ -376,7 +375,6 @@ public class GoClientCodegen extends AbstractGoCodegen {
 
         // underscoring would also lowercase the whole name, thus losing acronyms which are in capitals
         String camelizedName = camelize(toModel(name, false));
-        camelizedName = toCamelCaseWithInitialisms(camelizedName); // __CYLONIX_MOD__
         schemaKeyToModelNameCache.put(name, camelizedName);
         return camelizedName;
     }

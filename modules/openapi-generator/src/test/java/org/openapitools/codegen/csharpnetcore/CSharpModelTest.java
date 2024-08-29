@@ -177,7 +177,7 @@ public class CSharpModelTest {
         final CodegenProperty property1 = cm.vars.get(0);
         Assert.assertEquals(property1.baseName, "id");
         Assert.assertEquals(property1.dataType, "long");
-        Assert.assertEquals(property1.name, "Id");
+        Assert.assertEquals(property1.name, "ID"); // __CYLONIX_MOD__
         Assert.assertNull(property1.defaultValue);
         Assert.assertEquals(property1.baseType, "long");
         Assert.assertTrue(property1.required);
@@ -224,7 +224,7 @@ public class CSharpModelTest {
         final CodegenProperty property1 = cm.vars.get(0);
         Assert.assertEquals(property1.baseName, "id");
         Assert.assertEquals(property1.dataType, "long");
-        Assert.assertEquals(property1.name, "Id");
+        Assert.assertEquals(property1.name, "ID"); // __CYLONIX_MOD__
         Assert.assertNull(property1.defaultValue);
         Assert.assertEquals(property1.baseType, "long");
         Assert.assertTrue(property1.required);
@@ -274,7 +274,7 @@ public class CSharpModelTest {
         final CodegenProperty property1 = cm.vars.get(0);
         Assert.assertEquals(property1.baseName, "id");
         Assert.assertEquals(property1.dataType, "long?");
-        Assert.assertEquals(property1.name, "Id");
+        Assert.assertEquals(property1.name, "ID"); // __CYLONIX_MOD__
         Assert.assertNull(property1.defaultValue);
         Assert.assertEquals(property1.baseType, "long?");
         Assert.assertTrue(property1.required);
@@ -325,7 +325,7 @@ public class CSharpModelTest {
         final CodegenProperty property1 = cm.vars.get(0);
         Assert.assertEquals(property1.baseName, "id");
         Assert.assertEquals(property1.dataType, "long?");
-        Assert.assertEquals(property1.name, "Id");
+        Assert.assertEquals(property1.name, "ID"); // __CYLONIX_MOD__
         Assert.assertNull(property1.defaultValue);
         Assert.assertEquals(property1.baseType, "long?");
         Assert.assertTrue(property1.required);
@@ -387,7 +387,7 @@ public class CSharpModelTest {
         final CodegenProperty property1 = cm.vars.get(0);
         Assert.assertEquals(property1.baseName, "id");
         Assert.assertEquals(property1.dataType, "long?");
-        Assert.assertEquals(property1.name, "Id");
+        Assert.assertEquals(property1.name, "ID"); // __CYLONIX_MOD__
         Assert.assertNull(property1.defaultValue);
         Assert.assertEquals(property1.baseType, "long?");
         Assert.assertTrue(property1.required);
@@ -445,7 +445,7 @@ public class CSharpModelTest {
         final CodegenProperty property1 = cm.vars.get(0);
         Assert.assertEquals(property1.baseName, "id");
         Assert.assertEquals(property1.dataType, "long");
-        Assert.assertEquals(property1.name, "Id");
+        Assert.assertEquals(property1.name, "ID"); // __CYLONIX_MOD__
         Assert.assertNull(property1.defaultValue);
         Assert.assertEquals(property1.baseType, "long");
         Assert.assertTrue(property1.required);

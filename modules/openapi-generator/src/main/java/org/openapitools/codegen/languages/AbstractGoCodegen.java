@@ -33,7 +33,7 @@ import java.util.*;
 
 import static org.openapitools.codegen.utils.CamelizeOption.LOWERCASE_FIRST_LETTER;
 import static org.openapitools.codegen.utils.StringUtils.camelize;
-import static org.openapitools.codegen.utils.StringUtils.toCamelCaseWithInitialisms; // __CYLONIX_MOD__
+import static org.openapitools.codegen.utils.StringUtils.firstLetterToUpper; // __CYLONIX_MOD__
 import static org.openapitools.codegen.utils.StringUtils.underscore;
 
 public abstract class AbstractGoCodegen extends DefaultCodegen implements CodegenConfig {
@@ -235,7 +235,7 @@ public abstract class AbstractGoCodegen extends DefaultCodegen implements Codege
             return "AdditionalPropertiesField";
         }
 
-        return toCamelCaseWithInitialisms(name); // __CYLONIX_MOD__
+        return name;
     }
 
     @Override
@@ -250,10 +250,17 @@ public abstract class AbstractGoCodegen extends DefaultCodegen implements Codege
             return parameterNameMapping.get(name);
         }
 
+        // __BEGIN_CYLONIX_MOD__
+        name = sanitizeName(name);
+        if (name.matches("^\\d.*")) {
+            name = "var" + name;
+        }
+        // __END_CYLONIX_MOD__
+
         // params should be lowerCamelCase. E.g. "person Person", instead of
         // "Person Person".
         //
-        name = toCamelCaseWithInitialisms(camelize(name, LOWERCASE_FIRST_LETTER)); // __CYLONIX_MOD__
+        name = camelize(name, LOWERCASE_FIRST_LETTER); // __CYLONIX_MOD__
 
         // REVISIT: Actually, for idiomatic go, the param name should
         // really should just be a letter, e.g. "p Person"), but we'll get
@@ -270,7 +277,7 @@ public abstract class AbstractGoCodegen extends DefaultCodegen implements Codege
     public String toModelName(String name) {
         // camelize the model name
         // phone_number => PhoneNumber
-        return toCamelCaseWithInitialisms(camelize(toModel(name))); // __CYLONIX_MOD__
+        return camelize(toModel(name));
     }
 
     protected boolean isReservedFilename(String name) {
@@ -503,7 +510,7 @@ public abstract class AbstractGoCodegen extends DefaultCodegen implements Codege
             sanitizedOperationId = "call_" + sanitizedOperationId;
         }
 
-        return toCamelCaseWithInitialisms(camelize(sanitizedOperationId)); // __CYLONIX_MOD__
+        return camelize(sanitizedOperationId);
     }
 
     @Override
@@ -914,18 +921,6 @@ public abstract class AbstractGoCodegen extends DefaultCodegen implements Codege
     public String toEnumDefaultValue(String value, String datatype) {
         return datatype + "_" + value;
     }
-
-    // __BEGIN_CYLONIX_MOD__
-    private static String firstLetterToUpper(String word) {
-        if (word.length() == 0) {
-            return word;
-        } else if (word.length() == 1) {
-            return word.substring(0, 1).toUpperCase(Locale.ROOT);
-        } else {
-            return word.substring(0, 1).toUpperCase(Locale.ROOT) + word.substring(1);
-        }
-    }
-    // __END_CYLONIX_MOD__
 
     @Override
     public String toEnumVarName(String name, String datatype) {

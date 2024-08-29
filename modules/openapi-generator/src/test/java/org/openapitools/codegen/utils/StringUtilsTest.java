@@ -37,6 +37,13 @@ public class StringUtilsTest {
         Assert.assertEquals(camelize("$type", LOWERCASE_FIRST_CHAR), "$Type");
     }
 
+    // __BEGIN_CYLONIX_MOD__
+    @Test
+    public void testToSnakeCaseString() throws Exception {
+        Assert.assertEquals(toSnakeCaseString("JSONTypeIPv4A"), "JSON_TYPE_IPV4_A");
+    }
+    // __END_CYLONIX_MOD__
+
     @Test
     public void testDashize() {
         Assert.assertEquals(dashize("abcd"), "abcd");

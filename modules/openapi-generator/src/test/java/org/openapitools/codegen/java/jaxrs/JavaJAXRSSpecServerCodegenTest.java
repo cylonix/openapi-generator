@@ -555,7 +555,7 @@ public class JavaJAXRSSpecServerCodegenTest extends JavaJaxrsBaseTest {
                 "\nimport java.util.concurrent.CompletionStage;\n",
                 "CompletionStage<Void> deletePet", //Support empty response
                 "CompletionStage<List<Pet>> findPetsByStatus", //Support type of arrays response
-                "CompletionStage<Pet> getPetById" //Support single type response
+                "CompletionStage<Pet> getPetByID" //Support single type response // __CYLONIX_MOD__
         );
 
         TestUtils.ensureContainsFile(files, output, "src/gen/java/org/openapitools/api/StoreApi.java");

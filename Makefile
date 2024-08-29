@@ -1,6 +1,6 @@
 .PHONY: docker
 all: docker
 docker:
-	APP_NAME=openapi-generator-cli VERSION=v7.8.1; \
+	VERSION=v7.8.2; \
 	docker build . -f .hub.cli.dockerfile \
-		--tag cylonix/$${APP_NAME}:$${VERSION}
+		--tag cylonix/openapi-generator-cli:$${VERSION}

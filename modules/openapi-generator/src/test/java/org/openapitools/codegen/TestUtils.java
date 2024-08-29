@@ -293,7 +293,7 @@ public class TestUtils {
                     .containsWithName("org.springframework.data.annotation.LastModifiedBy")
                     .toProperty()
                 .toType()
-                .assertProperty("opportunityId")
+                .assertProperty("opportunityID") // __CYLONIX_MOD__
                     .assertPropertyAnnotations()
                     .containsWithNameAndAttributes("javax.persistence.Column", ImmutableMap.of("unique", "true"))
                     .toProperty()

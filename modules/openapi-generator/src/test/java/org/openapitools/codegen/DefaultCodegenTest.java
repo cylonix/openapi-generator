@@ -4130,7 +4130,7 @@ public class DefaultCodegenTest {
         assertFalse(cp.isMap);
         assertTrue(cp.isModel);
         assertEquals(cp.complexType, "object");
-        assertEquals(cp.baseName, "SchemaForRequestParameterCoordinatesInlineSchemaApplicationJson");
+        assertEquals(cp.baseName, "SchemaForRequestParameterCoordinatesInlineSchemaApplicationJSON"); // __CYLONIX_MOD__
 
         CodegenParameter coordinatesReferencedSchema = co.queryParams.get(1);
         content = coordinatesReferencedSchema.getContent();
@@ -4139,7 +4139,7 @@ public class DefaultCodegenTest {
         cp = mt.getSchema();
         assertFalse(cp.isMap); // because it is a referenced schema
         assertEquals(cp.complexType, "coordinates");
-        assertEquals(cp.baseName, "SchemaForRequestParameterCoordinatesReferencedSchemaApplicationJson");
+        assertEquals(cp.baseName, "SchemaForRequestParameterCoordinatesReferencedSchemaApplicationJSON"); // __CYLONIX_MOD__
     }
 
     @Test
@@ -4159,7 +4159,7 @@ public class DefaultCodegenTest {
         CodegenMediaType mt = content.get("application/json");
         assertNull(mt.getEncoding());
         CodegenProperty cp = mt.getSchema();
-        assertEquals(cp.baseName, "SchemaForRequestBodyApplicationJson");
+        assertEquals(cp.baseName, "SchemaForRequestBodyApplicationJSON"); // __CYLONIX_MOD__
         assertNotNull(cp);
 
         mt = content.get("text/plain");
@@ -4179,7 +4179,7 @@ public class DefaultCodegenTest {
         mt = content.get("application/json");
         assertNull(mt.getEncoding());
         cp = mt.getSchema();
-        assertEquals(cp.baseName, "SchemaForRequestBodyApplicationJson");
+        assertEquals(cp.baseName, "SchemaForRequestBodyApplicationJSON"); // __CYLONIX_MOD__
         assertEquals(cp.complexType, "coordinates");
 
         mt = content.get("text/plain");
@@ -4290,7 +4290,7 @@ public class DefaultCodegenTest {
         CodegenProperty cp = mt.getSchema();
         assertFalse(cp.isMap); // because it is a referenced schema
         assertEquals(cp.complexType, "coordinates");
-        assertEquals(cp.baseName, "SchemaFor200ResponseBodyApplicationJson");
+        assertEquals(cp.baseName, "SchemaFor200ResponseBodyApplicationJSON"); // __CYLONIX_MOD__
 
         mt = content.get("text/plain");
         assertNull(mt.getEncoding());
@@ -4306,7 +4306,7 @@ public class DefaultCodegenTest {
         cp = mt.getSchema();
         assertFalse(cp.isMap); // because it is a referenced schema
         assertEquals(cp.complexType, "coordinates");
-        assertEquals(cp.baseName, "SchemaFor201ResponseBodyApplicationJson");
+        assertEquals(cp.baseName, "SchemaFor201ResponseBodyApplicationJSON"); // __CYLONIX_MOD__
 
         assertNotNull(mt.getExamples());
         assertEquals(mt.getExamples().size(), 2);

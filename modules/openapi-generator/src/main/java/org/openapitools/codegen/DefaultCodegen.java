@@ -3891,7 +3891,7 @@ public class DefaultCodegen implements CodegenConfig {
         }
         property.nameInPascalCase = camelize(property.name);
         property.nameInCamelCase = camelize(property.name, LOWERCASE_FIRST_LETTER);
-        property.nameInSnakeCase = CaseFormat.UPPER_CAMEL.to(CaseFormat.UPPER_UNDERSCORE, property.nameInPascalCase);
+        property.nameInSnakeCase = toSnakeCaseString(property.nameInPascalCase);
         property.description = escapeText(p.getDescription());
         property.unescapedDescription = p.getDescription();
         property.title = p.getTitle();
@@ -5320,7 +5320,7 @@ public class DefaultCodegen implements CodegenConfig {
         codegenParameter.paramName = toParamName(parameter.getName());
         codegenParameter.nameInCamelCase = camelize(codegenParameter.paramName, LOWERCASE_FIRST_LETTER);
         codegenParameter.nameInPascalCase = camelize(codegenParameter.paramName);
-        codegenParameter.nameInSnakeCase = CaseFormat.UPPER_CAMEL.to(CaseFormat.UPPER_UNDERSCORE, codegenParameter.nameInPascalCase);
+        codegenParameter.nameInSnakeCase = toSnakeCaseString(codegenParameter.nameInPascalCase);
         codegenParameter.nameInLowerCase = codegenParameter.paramName.toLowerCase(Locale.ROOT);
 
         // import
@@ -7111,7 +7111,7 @@ public class DefaultCodegen implements CodegenConfig {
         codegenParameter.paramName = toParamName(codegenParameter.baseName);
         codegenParameter.nameInCamelCase = camelize(codegenParameter.paramName, LOWERCASE_FIRST_LETTER);
         codegenParameter.nameInPascalCase = camelize(codegenParameter.paramName);
-        codegenParameter.nameInSnakeCase = CaseFormat.UPPER_CAMEL.to(CaseFormat.UPPER_UNDERSCORE, codegenParameter.nameInPascalCase);
+        codegenParameter.nameInSnakeCase = toSnakeCaseString(codegenParameter.nameInPascalCase);
         codegenParameter.nameInLowerCase = codegenParameter.paramName.toLowerCase(Locale.ROOT);
         codegenParameter.isContainer = codegenProperty.isContainer;
         codegenParameter.containerType = codegenProperty.containerType;
@@ -7509,7 +7509,7 @@ public class DefaultCodegen implements CodegenConfig {
             codegenParameter.paramName = toArrayModelParamName(codegenParameter.baseName);
             codegenParameter.nameInCamelCase = camelize(codegenParameter.paramName, LOWERCASE_FIRST_LETTER);
             codegenParameter.nameInPascalCase = camelize(codegenParameter.paramName);
-            codegenParameter.nameInSnakeCase = CaseFormat.UPPER_CAMEL.to(CaseFormat.UPPER_UNDERSCORE, codegenParameter.nameInPascalCase);
+            codegenParameter.nameInSnakeCase = toSnakeCaseString(codegenParameter.nameInPascalCase);
             codegenParameter.nameInLowerCase = codegenParameter.paramName.toLowerCase(Locale.ROOT);
 
             codegenParameter.items = codegenProperty.items;

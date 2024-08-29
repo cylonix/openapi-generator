@@ -1252,7 +1252,7 @@ public class JavaClientCodegenTest {
         assertThat(defaultApiFile).content()
             .doesNotContain("event_id")
             .contains(
-                "@RequestLine(\"POST /events/{eventId}:undelete\")",
+                "@RequestLine(\"POST /events/{eventID}:undelete\")", // __CYLONIX_MOD__
                 // baseName is kept for form parameters
                 "@Param(\"some_file\") File someFile"
             );
@@ -2165,11 +2165,11 @@ public class JavaClientCodegenTest {
                 // set of string
                 "ParameterizedTypeReference<Set<String>> localVarReturnType = new"
                     + " ParameterizedTypeReference<Set<String>>() {};",
-                "getUserIdSetRequestCreation().toEntity(localVarReturnType)",
+                "getUserIDSetRequestCreation().toEntity(localVarReturnType)", // __CYLONIX_MOD__
                 // list of string
                 "ParameterizedTypeReference<List<String>> localVarReturnType = new"
                     + " ParameterizedTypeReference<List<String>>() {};",
-                "getUserIdListRequestCreation().toEntity(localVarReturnType)"
+                "getUserIDListRequestCreation().toEntity(localVarReturnType)" // __CYLONIX_MOD__
             );
     }
 
@@ -2532,11 +2532,11 @@ public class JavaClientCodegenTest {
             // set of string
             "ParameterizedTypeReference<Set<String>> localVarReturnType = new"
                     + " ParameterizedTypeReference<>() {};",
-            "getUserIdSetRequestCreation().toEntity(localVarReturnType)",
+            "getUserIDSetRequestCreation().toEntity(localVarReturnType)", // __CYLONIX_MOD__
             // list of string
             "ParameterizedTypeReference<List<String>> localVarReturnType = new"
                     + " ParameterizedTypeReference<>() {};",
-            "getUserIdListRequestCreation().toEntity(localVarReturnType)"
+            "getUserIDListRequestCreation().toEntity(localVarReturnType)" // __CYLONIX_MOD__
         );
     }
 
@@ -2773,7 +2773,7 @@ public class JavaClientCodegenTest {
             .doesNotContainWithName("XmlElementWrapper")
             .containsWithNameAndAttributes("XmlElement", Map.of("name", "\"id\"", "namespace", "\"http://example.com/schema\""))
             .toProperty().toType()
-            .assertMethod("getId")
+            .assertMethod("getID") // __CYLONIX_MOD__
             .doesNotHaveAnnotation("JacksonXmlElementWrapper")
             .hasAnnotation("JacksonXmlProperty", Map.of("localName", "\"id\"", "namespace", "\"http://example.com/schema\""))
             .toFileAssert()

@@ -598,8 +598,8 @@ A `Pet` model with three properties will provide a _lot_ of information about th
     "isInteger" : false,
     "vars" : [ {
       "baseName" : "id",
-      "getter" : "getId",
-      "setter" : "setId",
+      "getter" : "getID",
+      "setter" : "setID",
       "dataType" : "int64",
       "datatypeWithEnum" : "int64",
       "dataFormat" : "int64",

@@ -66,11 +66,11 @@ public class JavaModelTest {
 
         final CodegenProperty property1 = vars.get(0);
         Assert.assertEquals(property1.baseName, "id");
-        Assert.assertEquals(property1.nameInPascalCase, "Id");
+        Assert.assertEquals(property1.nameInPascalCase, "ID"); // __CYLONIX_MOD__
         Assert.assertEquals(property1.nameInCamelCase, "id");
         Assert.assertEquals(property1.nameInSnakeCase, "ID");
-        Assert.assertEquals(property1.getter, "getId");
-        Assert.assertEquals(property1.setter, "setId");
+        Assert.assertEquals(property1.getter, "getID"); // __CYLONIX_MOD__
+        Assert.assertEquals(property1.setter, "setID"); // __CYLONIX_MOD__
         Assert.assertEquals(property1.dataType, "Long");
         Assert.assertEquals(property1.name, "id");
         Assert.assertNull(property1.defaultValue);
@@ -613,10 +613,10 @@ public class JavaModelTest {
 
         final CodegenProperty property = cm.vars.get(0);
         Assert.assertEquals(property.baseName, "pId");
-        Assert.assertEquals(property.getter, "getpId");
-        Assert.assertEquals(property.setter, "setpId");
+        Assert.assertEquals(property.getter, "getpID"); // __CYLONIX_MOD__
+        Assert.assertEquals(property.setter, "setpID"); // __CYLONIX_MOD__
         Assert.assertEquals(property.dataType, "String");
-        Assert.assertEquals(property.name, "pId");
+        Assert.assertEquals(property.name, "pID"); // __CYLONIX_MOD__
         Assert.assertNull(property.defaultValue);
         Assert.assertEquals(property.baseType, "String");
         Assert.assertTrue(property.required);

@@ -165,7 +165,7 @@ public class TypeScriptNodeClientCodegen extends AbstractTypeScriptClientCodegen
             return importMapping.get(name);
         }
 
-        return DEFAULT_MODEL_FILENAME_DIRECTORY_PREFIX + toModelNameLowerCaseFirstWord(camelize(name, LOWERCASE_FIRST_LETTER)); // __CYLONIX_MOD__
+        return DEFAULT_MODEL_FILENAME_DIRECTORY_PREFIX + camelize(toModelName(name), LOWERCASE_FIRST_LETTER);
     }
 
     @Override
@@ -174,7 +174,7 @@ public class TypeScriptNodeClientCodegen extends AbstractTypeScriptClientCodegen
             return importMapping.get(name);
         }
 
-        return DEFAULT_MODEL_IMPORT_DIRECTORY_PREFIX + modelPackage() + "/" + toModelNameLowerCaseFirstWord(camelize(name, LOWERCASE_FIRST_LETTER)); // __CYLONIX_MOD__
+        return DEFAULT_MODEL_IMPORT_DIRECTORY_PREFIX + modelPackage() + "/" + camelize(toModelName(name), LOWERCASE_FIRST_LETTER);
     }
 
     @Override
