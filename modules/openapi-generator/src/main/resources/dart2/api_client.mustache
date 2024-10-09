@@ -188,11 +188,11 @@ class ApiClient {
         {{/models}}
         default:
           dynamic match;
-          // __BEGIN_CYLONIX_MOD__
+          {{!__BEGIN_CYLONIX_MOD__}}
           if (value == null) {
             return null;
           }
-          // __END_CYLONIX_MOD__
+          {{!__END_CYLONIX_MOD__}}
 
           if (value is List && (match = _regList.firstMatch(targetType)?.group(1)) != null) {
             return value
