@@ -391,7 +391,7 @@ public class GoClientCodegen extends AbstractGoCodegen {
     public String toEnumDefaultValue(String value, String datatype) {
         String prefix = "";
         if (enumClassPrefix) {
-            prefix = datatype.toUpperCase(Locale.ROOT) + "_";
+            prefix = datatype; // __CYLONIX_MOD__
         }
         return prefix + value;
     }

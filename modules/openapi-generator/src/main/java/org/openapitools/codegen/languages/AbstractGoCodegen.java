@@ -956,7 +956,7 @@ public abstract class AbstractGoCodegen extends DefaultCodegen implements Codege
         } else if (enumName.matches("\\d.*")) { // starts with a number
             return NUMERIC_ENUM_PREFIX + enumName;
         } else {
-            return firstLetterToUpper(enumName); // __CYLONIX_MOD__
+            return camelize(enumName.toLowerCase()); // __CYLONIX_MOD__
         }
     }
 
